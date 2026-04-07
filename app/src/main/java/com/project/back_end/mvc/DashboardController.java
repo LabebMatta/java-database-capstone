@@ -14,17 +14,21 @@ public class DashboardController {
 
     @GetMapping("/adminDashboard/{token}")
     public String adminDashboard(@PathVariable String token) {
-        if (service.validateToken(token, "admin").isEmpty()) {
+
+        if (service.validateToken(token, "admin").getBody().isEmpty()) {
             return "admin/adminDashboard";
         }
+
         return "redirect:http://localhost:8080";
     }
 
     @GetMapping("/doctorDashboard/{token}")
     public String doctorDashboard(@PathVariable String token) {
-        if (service.validateToken(token, "doctor").isEmpty()) {
+
+        if (service.validateToken(token, "doctor").getBody().isEmpty()) {
             return "doctor/doctroDashboard";
         }
+
         return "redirect:http://localhost:8080";
     }
 }
