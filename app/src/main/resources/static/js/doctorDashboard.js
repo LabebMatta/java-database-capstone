@@ -3,7 +3,8 @@ import { createPatientRow } from './components/patientRows.js';
 
 const tableBody = document.getElementById("patientTableBody");
 let selectedDate = new Date().toISOString().split('T')[0];
-const token = localStorage.getItem("token");
+const urlParts = window.location.pathname.split('/');
+const token = urlParts[urlParts.length - 1];
 let patientName = null;
 
 document.getElementById("searchBar").addEventListener("input", (e) => {
@@ -25,40 +26,36 @@ document.getElementById("datePicker").addEventListener("change", (e) => {
 
 async function loadAppointments() {
     try {
-        const appointments = await getAllAppointments(
-            selectedDate, patientName, token
-        );
+        const responseData = await getAllAppointments(selectedDate, patientName, token);
+        
+        console.log("Data received from server:", responseData);
+
+        const appointments = responseData.appointments || responseData;
+
         tableBody.innerHTML = "";
 
-        if (!appointments || appointments.length === 0) {
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" class="noPatientRecord">
-                        No Appointments found for today.
-                    </td>
-                </tr>`;
+        if (!Array.isArray(appointments) || appointments.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="5" class="noPatientRecord">No Appointments found.</td></tr>`;
             return;
         }
 
-        appointments.forEach(appointment => {
-            const patient = {
-                id: appointment.patient.id,
-                name: appointment.patient.name,
-                phone: appointment.patient.phone,
-                email: appointment.patient.email
-            };
-            const row = createPatientRow(appointment, patient);
-            tableBody.appendChild(row);
-        });
+const doctorId = new URLSearchParams(window.location.search).get('doctorId') || "1"; 
 
+appointments.forEach(appointment => {
+
+    const patientData = {
+        id: appointment.patientId || (appointment.patient ? appointment.patient.id : "N/A"),
+        name: appointment.patientName || (appointment.patient ? appointment.patient.name : "Unknown"),
+        phone: appointment.patientPhone || (appointment.patient ? appointment.patient.phone : "N/A"),
+        email: appointment.patientEmail || (appointment.patient ? appointment.patient.email : "N/A")
+    };
+
+    const row = createPatientRow(patientData, appointment.id, doctorId); 
+    tableBody.appendChild(row);
+});
     } catch (error) {
-        console.error("Error loading appointments:", error);
-        tableBody.innerHTML = `
-            <tr>
-                <td colspan="5" class="noPatientRecord">
-                    Error loading appointments. Try again later.
-                </td>
-            </tr>`;
+        console.error("JavaScript Crash Log:", error);
+        tableBody.innerHTML = `<tr><td colspan="5" class="noPatientRecord">Error loading appointments. Check console.</td></tr>`;
     }
 }
 

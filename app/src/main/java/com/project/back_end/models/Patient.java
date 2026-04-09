@@ -28,11 +28,12 @@ public class Patient {
     @Pattern(regexp = "\\d{10}", message = "Phone number must be 10 digits")
     private String phone;
 
-    @NotNull(message = "Address cannot be null")
+    @Column(nullable = true)
     @Size(max = 255, message = "Address must not exceed 255 characters")
     private String address;
 
-    // Getters and Setters
+    public Patient() {
+    }
 
     public Long getId() {
         return id;

@@ -26,7 +26,7 @@ public class DashboardController {
     public String doctorDashboard(@PathVariable String token) {
 
         if (service.validateToken(token, "doctor").getBody().isEmpty()) {
-            return "doctor/doctroDashboard";
+            return "doctor/doctorDashboard";
         }
 
         return "redirect:http://localhost:8080";

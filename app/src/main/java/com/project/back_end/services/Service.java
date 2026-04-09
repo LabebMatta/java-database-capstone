@@ -118,16 +118,23 @@ public class Service {
     public ResponseEntity<Map<String, String>> validatePatientLogin(Login login) {
         Map<String, String> response = new HashMap<>();
         try {
+            if (login.getIdentifier() == null || login.getPassword() == null) {
+                response.put("message", "Email and Password are required");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+
             Patient patient = patientRepository.findByEmail(login.getIdentifier());
+            
             if (patient == null || !patient.getPassword().equals(login.getPassword())) {
                 response.put("message", "Invalid credentials");
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
             }
+
             String token = tokenService.generateToken(patient.getEmail());
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            response.put("message", "Internal server error");
+            response.put("message", "Internal server error: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }

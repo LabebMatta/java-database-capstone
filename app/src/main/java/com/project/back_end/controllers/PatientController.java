@@ -34,7 +34,7 @@ public class PatientController {
         return patientService.getPatientDetails(token);
     }
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<Map<String, String>> createPatient(@RequestBody Patient patient) {
         Map<String, String> response = new HashMap<>();
         if (!service.validatePatient(patient)) {

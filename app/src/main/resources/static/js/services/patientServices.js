@@ -6,7 +6,7 @@ const PATIENT_API = API_BASE_URL + '/patient'
 //For creating a patient in db
 export async function patientSignup(data) {
   try {
-    const response = await fetch(`${PATIENT_API}`,
+    const response = await fetch(`${PATIENT_API}/signup`,
       {
         method: "POST",
         headers: {

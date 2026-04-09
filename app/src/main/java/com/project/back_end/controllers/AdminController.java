@@ -17,7 +17,7 @@ public class AdminController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<Map<String, String>> adminLogin(@RequestBody Admin admin) {
         return service.validateAdmin(admin);
     }
