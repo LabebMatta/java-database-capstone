@@ -29,8 +29,6 @@ public class Prescription {
     @Size(max = 200, message = "Doctor notes must not exceed 200 characters")
     private String doctorNotes;
 
-    // Constructors
-
     public Prescription() {}
 
     public Prescription(String patientName, Long appointmentId, String medication,
@@ -41,8 +39,6 @@ public class Prescription {
         this.dosage = dosage;
         this.doctorNotes = doctorNotes;
     }
-
-    // Getters and Setters
 
     public String getId() {
         return id;
