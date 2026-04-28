@@ -29,8 +29,6 @@ public class Appointment {
     @NotNull(message = "Status cannot be null")
     private int status; // 0 = Scheduled, 1 = Completed
 
-    // Helper Methods
-
     @Transient
     public LocalDateTime getEndTime() {
         return appointmentTime.plusHours(1);
@@ -46,7 +44,6 @@ public class Appointment {
         return appointmentTime.toLocalTime();
     }
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
