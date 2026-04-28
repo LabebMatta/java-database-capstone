@@ -1,4 +1,3 @@
-// patientRecordServices.js
 import { getPatientAppointments } from "./services/patientServices.js";
 import { createPatientRecordRow } from './components/patientRecordRow.js';
 
@@ -17,7 +16,6 @@ async function initializePage() {
 
     const appointmentData = await getPatientAppointments(patientId, token, "doctor") || [];
 
-    // Filter by both patientId and doctorId
     const filteredAppointments = appointmentData.filter(app =>
       app.doctorId == doctorId);
     console.log(filteredAppointments)
@@ -33,7 +31,7 @@ function renderAppointments(appointments) {
 
   const actionTh = document.querySelector("#patientTable thead tr th:last-child");
   if (actionTh) {
-    actionTh.style.display = "table-cell"; // Always show "Actions" column
+    actionTh.style.display = "table-cell";
   }
 
   if (!appointments.length) {
