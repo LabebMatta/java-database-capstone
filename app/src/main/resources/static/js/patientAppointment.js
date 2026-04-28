@@ -1,4 +1,3 @@
-// patientAppointment.js
 import { getPatientAppointments, getPatientData, filterAppointments } from "./services/patientServices.js";
 
 const tableBody = document.getElementById("patientTableBody");
@@ -34,7 +33,7 @@ function renderAppointments(appointments) {
 
   const actionTh = document.querySelector("#patientTable thead tr th:last-child");
   if (actionTh) {
-    actionTh.style.display = "table-cell"; // Always show "Actions" column
+    actionTh.style.display = "table-cell";
   }
 
   if (!appointments.length) {
@@ -62,7 +61,6 @@ function renderAppointments(appointments) {
 }
 
 function redirectToUpdatePage(appointment) {
-  // Prepare the query parameters
   const queryString = new URLSearchParams({
     appointmentId: appointment.id,
     patientId: appointment.patientId,
@@ -73,14 +71,12 @@ function redirectToUpdatePage(appointment) {
     appointmentTime: appointment.appointmentTimeOnly,
   }).toString();
 
-  // Redirect to the update page with the query string
   setTimeout(() => {
     window.location.href = `/pages/updateAppointment.html?${queryString}`;
   }, 100);
 }
 
 
-// Search and Filter Listeners
 document.getElementById("searchBar").addEventListener("input", handleFilterChange);
 document.getElementById("appointmentFilter").addEventListener("change", handleFilterChange);
 
