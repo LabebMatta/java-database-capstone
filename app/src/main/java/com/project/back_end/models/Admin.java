@@ -18,7 +18,6 @@ public class Admin {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
