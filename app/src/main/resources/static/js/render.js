@@ -1,5 +1,3 @@
-// render.js
-
 function selectRole(role) {
   setRole(role);
   const token = localStorage.getItem('token');
@@ -22,7 +20,7 @@ function selectRole(role) {
 function renderContent() {
   const role = getRole();
   if (!role) {
-    window.location.href = "/"; // if no role, send to role selection page
+    window.location.href = "/";
     return;
   }
 }

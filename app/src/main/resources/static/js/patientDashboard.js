@@ -118,7 +118,6 @@ window.loginPatient = async function () {
       return;
     }
 
-    // Changed 'email' to 'identifier' to match Login DTO and Service.java logic
     const data = { identifier: email, password: password };
     const response = await patientLogin(data);
     

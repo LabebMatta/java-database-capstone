@@ -37,7 +37,6 @@ public class Doctor {
     @ElementCollection
     private List<String> availableTimes;
 
-    // Getters and Setters
 
     public Long getId() {
         return id;
