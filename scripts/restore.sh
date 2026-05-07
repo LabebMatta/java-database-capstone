@@ -1,13 +1,16 @@
 #!/bin/bash
 
+# Change to your actual Windows path (use forward slashes, e.g., C:/Users/labeb/...)
+# Replace 'YOUR_PASSWORD' with your actual MySQL root password
 echo "Restoring MySQL database..."
-mysql -u root -p cms < /home/project/java-database-capstone/scripts/cms_backup.sql
+mysql -u root abcd1234EFGHIJK cms < C:/Users/labeb/java-database-capstone/scripts/cms_backup.sql
 echo "MySQL database restored successfully!"
 
 echo "Restoring MongoDB database..."
-# Replace 'admin' with the auth database if your user is created there
-mongosh "mongodb://root:ZgNe9jW8v5DEQ0DIMxL8SU2L@172.21.135.71:27017/prescriptions?authSource=admin" \
-< /home/project/java-database-capstone/scripts/mongodb_setup.js
+# Change the IP to 'localhost' since it's now on your machine
+# Use the actual username/password you set for MongoDB, or leave blank if you didn't set one
+mongosh "mongodb://localhost:27017/prescriptions" < C:/Users/labeb/java-database-capstone/scripts/mongodb_setup.js
+
 if [ $? -eq 0 ]; then
   echo "MongoDB database restored successfully!"
 else
